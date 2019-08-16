@@ -119,7 +119,7 @@ namespace RedClientDeploy.Services2
 
         private async Task<T> GetMethodAsync<T>(string url)
         {
-            T obj = default;
+            T obj = default(T);
             //var j = ToJson(content);
 
             Client.DefaultRequestHeaders.Remove("X-Tableau-Auth");
