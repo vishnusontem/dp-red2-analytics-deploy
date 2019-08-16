@@ -50,6 +50,7 @@ namespace RedClientDeploy.Handlers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 ErrorManager em = new ErrorManager();
 
                 em = _tableauService.Error;
