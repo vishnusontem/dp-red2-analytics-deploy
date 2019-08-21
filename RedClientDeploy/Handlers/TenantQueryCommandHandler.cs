@@ -1,4 +1,5 @@
 ﻿using AzureFromTheTrenches.Commanding.Abstractions;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RedClientDeploy.Commands;
 using RedClientDeploy.Models;
@@ -16,17 +17,20 @@ namespace RedClientDeploy.Handlers
 {
     public class TenantQueryCommandHandler : ICommandHandler<TenantQueryCommand, Response>
     {
-        private readonly RedClientDeploy.Services2.TableauService _tableauService;
-        private readonly SnowflakeService _snowflakeService;
+        private readonly Services2.TableauService _tableauService;
+        private readonly Services2.SnowflakeService _snowflakeService;
+        private readonly ILogger _log;
 
-        public TenantQueryCommandHandler(RedClientDeploy.Services2.TableauService tableauService, SnowflakeService snowflakeService)
+        public TenantQueryCommandHandler(ILogger logging, Services2.TableauService tableauService, Services2.SnowflakeService snowflakeService)
         {
             _tableauService = tableauService;
             _snowflakeService = snowflakeService;
+            _log = logging;
         }
 
         public async Task<Response> ExecuteAsync(TenantQueryCommand command, Response previousResult)
         {
+            _log.LogInformation("hello from function");
 
             Response tenant = new Response();
 

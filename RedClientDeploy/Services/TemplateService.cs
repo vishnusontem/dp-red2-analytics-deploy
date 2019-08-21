@@ -57,7 +57,13 @@ namespace RedClientDeploy.Services
 
         private static string ParseTemplate(string template, Dictionary<string, object> variables)
         {
-            var stubbleBuilder = new StubbleBuilder();
+            var stubbleBuilder = new StubbleBuilder()new StubbleBuilder()
+  .Configure(settings =>
+  {
+      settings. .IgnoreCaseOnKeyLookup = true;
+      settings.MaxRecursionDepth = 512;
+      settings.AddJsonNet(); // Extension method from extension library
+  });
 
             var stubble = stubbleBuilder.Build();
 

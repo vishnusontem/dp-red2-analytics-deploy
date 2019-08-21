@@ -32,9 +32,15 @@ namespace RedClientDeploy
                     commandRegistry.Register<TenantQueryCommandHandler>();
                     commandRegistry.Register<CreateTenantCommandHandler>();
                     serviceCollection.AddHttpClient<Services2.TableauService>();
-                    serviceCollection.AddSingleton(c => new SnowflakeService());
+                    serviceCollection.AddSingleton(c => new Services2.SnowflakeService());
                     serviceCollection.AddSingleton(c => new ArtifactService());
+                    serviceCollection.AddLogging();
                 })
+                .OpenApiEndpoint(openApi => openApi
+                    .Title("RED 2.0 Client Onboarding REST API")
+                    .Version("0.1.0")
+                    .UserInterface()
+                )
                 .Functions(functions => functions
                     .HttpRoute("v1/red2/tenant", route => route
                         .HttpFunction<TenantQueryCommand>("/{name}", HttpMethod.Get)
